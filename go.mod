@@ -1,3 +1,3 @@
-module github.com/freeo/dirchute
+module github.com/freeo/fdcute
 
 go 1.23.4

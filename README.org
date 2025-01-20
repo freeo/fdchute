@@ -1,6 +1,16 @@
 
+* Current Speed on full home dir
+
+#+begin_src bash
+time (fd -H --ignore-file ~/.config/fd/ignore_fdchute . ~ | fdchute | wc -l)
+
+2.70s user 3.19s system 636% cpu 0.926 total
+#+end_src
 
 * TODO
+** catching bad uses
+expect input, else abort
+display help
 ** ignore common cache files
 ✅ .git/
 pnpm
@@ -12,7 +22,7 @@ every finished, sorted folder level should be streamed to the buffer/pipe which 
 
 * Benchmark
 
-** dirchute
+** fdchute
 #+begin_src bash
 j timehome
 3.125.153
@@ -34,7 +44,7 @@ sys  0m7.103s
 
 *** Write to STDOUT
 
-( fd -H . | /home/freeo/wb/dirchute2/main; )  6.04s user 9.90s system 121% cpu 13.111 total
+( fd -H . | /home/freeo/wb/fdchute/main; )  6.04s user 9.90s system 121% cpu 13.111 total
 
 * Worst Offenders
        Helps counting big folder patterns, mostly used to identify all the "cache" folders
