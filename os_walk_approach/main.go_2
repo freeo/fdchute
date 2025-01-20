@@ -1,0 +1,68 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"sort"
+	"strings"
+
+	"github.com/mitchellh/go-homedir"
+)
+
+type FileInfo struct {
+	Path  string
+	IsDir bool
+	Depth int
+}
+
+func main() {
+	if len(os.Args) < 2 {
+		fmt.Fprintf(os.Stderr, "Usage: %s <path>\n", os.Args[0])
+		os.Exit(1)
+	}
+
+	inputPath, err := homedir.Expand(os.Args[1])
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error expanding path: %v\n", err)
+		os.Exit(1)
+	}
+
+	var files []FileInfo
+
+	filepath.Walk(inputPath, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			if os.IsPermission(err) {
+				return filepath.SkipDir
+			}
+			return nil
+		}
+
+		if path == inputPath {
+			return nil
+		}
+
+		relPath, _ := filepath.Rel(inputPath, path)
+		depth := strings.Count(relPath, string(os.PathSeparator))
+		files = append(files, FileInfo{
+			Path:  relPath,
+			IsDir: info.IsDir(),
+			Depth: depth,
+		})
+		return nil
+	})
+
+	sort.Slice(files, func(i, j int) bool {
+		if files[i].Depth != files[j].Depth {
+			return files[i].Depth < files[j].Depth
+		}
+		if files[i].IsDir != files[j].IsDir {
+			return !files[i].IsDir
+		}
+		return files[i].Path < files[j].Path
+	})
+
+	for _, file := range files {
+		fmt.Println(file.Path)
+	}
+}

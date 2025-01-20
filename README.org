@@ -1,0 +1,40 @@
+
+
+* TODO
+** ignore common cache files
+✅ .git/
+pnpm
+python pycache
+etc.
+** caching
+** streaming
+every finished, sorted folder level should be streamed to the buffer/pipe which television is reading from (if this is possible)
+
+* Benchmark
+
+** dirchute
+#+begin_src bash
+j timehome
+3.125.153
+
+real 0m3.081s
+user 0m5.764s
+sys  0m8.601s
+#+end_src
+
+** Baseline
+#+begin_src bash
+j timebaseline
+3.125.147
+
+real 0m24.196s
+user 0m27.661s
+sys  0m7.103s
+#+end_src
+
+*** Write to STDOUT
+
+( fd -H . | /home/freeo/wb/dirchute2/main; )  6.04s user 9.90s system 121% cpu 13.111 total
+
+* Worst Offenders
+       Helps counting big folder patterns, mostly used to identify all the "cache" folders

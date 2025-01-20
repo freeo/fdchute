@@ -1,0 +1,5 @@
+offender:
+    fd -H --ignore-file ~/.config/fd/ignore_dirchute . ~ | rg "cache" | tee >(wc -l) | ./main
+
+test:
+    fd -H --ignore-file ~/.config/fd/ignore_dirchute . ~ | tee >(wc -l) | ./main

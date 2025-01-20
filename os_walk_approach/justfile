@@ -1,0 +1,25 @@
+default:
+  @just --choose
+
+# benchmark
+time PATH:
+  go build main.go
+  time (./main {{PATH}} | wc -l)
+
+timewb:
+  @just time ~/wb
+
+timehome:
+  @just time ~/
+
+prof PATH:
+  go build -o main
+  time (./main -cpuprofile=cpu.prof -memprofile=mem.prof {{PATH}} | wc -l)
+  fd prof
+  # ./main -cpuprofile=cpu.prof -memprofile=mem.prof {{PATH}}
+
+profwb:
+  @just prof ~/wb
+
+profhome:
+  @just prof ~/

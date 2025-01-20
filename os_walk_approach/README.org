@@ -1,0 +1,3 @@
+1st approach without fd.
+
+Considerably slower than using fd. No real point int continuing this.
