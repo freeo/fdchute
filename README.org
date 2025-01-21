@@ -8,17 +8,23 @@ time (fd -H --ignore-file ~/.config/fd/ignore_fdchute . ~ | fdchute | wc -l)
 #+end_src
 
 * TODO
+** WIP Streaming ordered output
+output level 0+1 first, before continuing to sort stuff
+
 ** catching bad uses
 expect input, else abort
 display help
-** ignore common cache files
-✅ .git/
+** caching
+** Ordering:
+take parameters from ranger, so that files have the exact same order in tv and ranger
+** DONE ignore common cache files
+.git/
 pnpm
 python pycache
 etc.
-** caching
-** streaming
+** DONE streaming to STDOUT, async TV read
 every finished, sorted folder level should be streamed to the buffer/pipe which television is reading from (if this is possible)
+tv already supported this! Just need to write (flush) periodically
 
 * Benchmark
 
