@@ -1,3 +1,6 @@
+* fdchute
+
+fd output filtered for performance, ordered for file navigation, optimized for ranger-cli with television.
 
 * Current Speed on full home dir
 

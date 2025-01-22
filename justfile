@@ -10,7 +10,9 @@ e2e:
   go build -o main
   fd -H --ignore-file ~/.config/fd/ignore_fdchute --base-directory ~/ . | ./main --debug | tv
 
-# benchmark
+benchmark:
+  @just timehome
+
 time PATH:
   go build main.go
   time (fd -H --ignore-file ~/.config/fd/ignore_fdchute . {{PATH}} | ./main | wc -l)
@@ -20,6 +22,8 @@ timewb:
 
 timehome:
   @just time ~/
+
+
 
 # fd baseline minimum required time
 timefd:
